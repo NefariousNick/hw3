@@ -69,9 +69,12 @@ public:
     QSlider *yScaleSlider;
     QLabel *yScaleLabel;
     QSlider *timelineSlider;
-    QHBoxLayout *horizontalLayout_2;
+    QVBoxLayout *verticalLayout;
     QSpinBox *animSpinBox;
     QLabel *animLabel;
+    QHBoxLayout *horizontalLayout_2;
+    QSpinBox *userSpinBox;
+    QLabel *label_4;
     QVBoxLayout *Rotation;
     QLabel *RotDescriptionLabel;
     QDial *rotationDial;
@@ -116,6 +119,7 @@ public:
         display = new QWidget(TransformsBox);
         display->setObjectName(QStringLiteral("display"));
         display->setMinimumSize(QSize(100, 100));
+        display->setMaximumSize(QSize(100, 100));
         display->setAutoFillBackground(true);
 
         gridLayout_3->addWidget(display, 7, 1, 1, 1);
@@ -302,24 +306,46 @@ public:
 
         gridLayout_3->addWidget(timelineSlider, 2, 1, 1, 1);
 
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(6);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         animSpinBox = new QSpinBox(TransformsBox);
         animSpinBox->setObjectName(QStringLiteral("animSpinBox"));
+        animSpinBox->setMaximumSize(QSize(50, 16777215));
         animSpinBox->setMinimum(1);
         animSpinBox->setMaximum(8);
 
-        horizontalLayout_2->addWidget(animSpinBox);
+        verticalLayout->addWidget(animSpinBox, 0, Qt::AlignHCenter);
 
         animLabel = new QLabel(TransformsBox);
         animLabel->setObjectName(QStringLiteral("animLabel"));
+        animLabel->setMaximumSize(QSize(50, 50));
         animLabel->setAlignment(Qt::AlignCenter);
 
-        horizontalLayout_2->addWidget(animLabel);
+        verticalLayout->addWidget(animLabel, 0, Qt::AlignHCenter);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        userSpinBox = new QSpinBox(TransformsBox);
+        userSpinBox->setObjectName(QStringLiteral("userSpinBox"));
+        userSpinBox->setMinimum(1);
+        userSpinBox->setMaximum(8);
+        userSpinBox->setValue(8);
+
+        horizontalLayout_2->addWidget(userSpinBox);
+
+        label_4 = new QLabel(TransformsBox);
+        label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_2->addWidget(label_4);
 
 
-        gridLayout_3->addLayout(horizontalLayout_2, 4, 1, 1, 1);
+        verticalLayout->addLayout(horizontalLayout_2);
+
+
+        gridLayout_3->addLayout(verticalLayout, 4, 1, 1, 1);
 
         Rotation = new QVBoxLayout();
         Rotation->setSpacing(6);
@@ -359,6 +385,7 @@ public:
 
         animButton = new QPushButton(TransformsBox);
         animButton->setObjectName(QStringLiteral("animButton"));
+        animButton->setMaximumSize(QSize(100, 16777215));
 
         gridLayout_3->addWidget(animButton, 1, 1, 1, 1);
 
@@ -419,6 +446,7 @@ public:
         yScaleDescriptionLabel->setText(QApplication::translate("Window", "Scale in Y", Q_NULLPTR));
         yScaleLabel->setText(QApplication::translate("Window", "TextLabel", Q_NULLPTR));
         animLabel->setText(QApplication::translate("Window", "1", Q_NULLPTR));
+        label_4->setText(QApplication::translate("Window", "Specify", Q_NULLPTR));
         RotDescriptionLabel->setText(QApplication::translate("Window", "Rotation in Degrees", Q_NULLPTR));
         rotationLabel->setText(QApplication::translate("Window", "TextLabel", Q_NULLPTR));
         renderButton->setText(QApplication::translate("Window", "Render", Q_NULLPTR));

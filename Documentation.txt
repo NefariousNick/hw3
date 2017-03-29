@@ -1,0 +1,9 @@
+Usage:
+Clicking “Animate” runs through the 8 frames in the cycle, returning to 1 upon completion. The slider below “Animate” selects the individual frames, ranging from 1-8. Rather than buttons, the Spinbox and label below the slider feature the frame number the animation is on, where the Spinbox can be used to advance a frame or retreat a frame in the animation. The spinbox even further below, beside “Specify” allows the user to specify how many frames are in an animation. Render takes a snapshot of the current image in the frame and saves it to file. “Spawn Animal” spawns the default frame 1 creature. 
+
+The three sliders at the bottom change the color of a selected tree item, using RGB 256 colors, where the visible is shown clearly in the box to the right, with the numerical values in the spinboxes between the colored square and the sliders. 
+
+When an item in the tree is selected, Rotation, Translation, and Scale options are available and show their respective information for the selected tree item. The dial for the foremost item affects the degrees rotation of an item and its respective children. The latter two use sliders, for both the x and y coordinates, which also affects the item and its respective children. 
+
+Design, Bugs, and Problems:
+The design is what made sense and in the format presented in the limited examples provided or from what was picked up watching/reading tutorials online. There are still persisting bugs involving the tree, some of which are baffling. Sometimes, unpredictably, when an item is selected it may transform without warning or simply vanish (off the screen) altogether. This might have to do with how setX() (with X being some transformation) handles items, or the methods that they call to do their work. I've scoured all the way back down to vec3 and I cannot eliminate this issue for the life of me. The difficulties involved was everything. Directions are very unclear or easy to misunderstand.

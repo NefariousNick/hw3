@@ -104,6 +104,11 @@ Window::Window(QWidget *parent) :		// Window constructor
 	ui->xScaleSlider->setVisible(FALSE);
 	ui->yScaleSlider->setVisible(FALSE);
 	ui->rotationDial->setVisible(FALSE);
+	ui->xTransSlideLabel->setVisible(FALSE);
+	ui->yTransSlideLabel->setVisible(FALSE);
+	ui->xScaleLabel->setVisible(FALSE);
+	ui->yScaleLabel->setVisible(FALSE);
+	ui->rotationLabel->setVisible(FALSE);
 	ui->xTransSlider->setMinimum(-8);	ui->xTransSlider->setMaximum(7);	ui->xTransSlider->setSingleStep(1); // These are just sample to show how to do it. You decide on appropriate values. To use floats instead of ints, divide the values the sliders return by 100.0
 	ui->yTransSlider->setMinimum(-8);	ui->yTransSlider->setMaximum(7);	ui->yTransSlider->setSingleStep(1);
 	ui->xScaleSlider->setMinimum(0);	ui->xScaleSlider->setMaximum(50);	ui->xScaleSlider->setSingleStep(1);
@@ -125,6 +130,7 @@ Window::Window(QWidget *parent) :		// Window constructor
 	//****************************************************************************
 	//animation stuff
 	this->animCount = 1;
+	this->userSpecified = 8;
 	timer = new QTimer(this);
 	connect(timer, SIGNAL(timeout()), this, SLOT(animate()));
 	
@@ -178,13 +184,16 @@ void Window::on_treeView_currentItemChanged(const QItemSelection &selected, cons
 	ui->xScaleSlider->setVisible(TRUE);
 	ui->yScaleSlider->setVisible(TRUE);
 	ui->rotationDial->setVisible(TRUE);
-
+	ui->xTransSlideLabel->setVisible(TRUE);
+	ui->yTransSlideLabel->setVisible(TRUE);
+	ui->xScaleLabel->setVisible(TRUE);
+	ui->yScaleLabel->setVisible(TRUE);
+	ui->rotationLabel->setVisible(TRUE);
 	// You'll need slots to receive signals from the sliders and update the value of the nodes
 }
 /***************************Translation Sliders*********************************/
 // Called when the slider is slid. 
-void Window::on_xTransSlider_valueChanged(float value)
-{
+void Window::on_xTransSlider_valueChanged(float value){
 	ui->xTransSlideLabel->setNum(value);	// Set the label value
 							
 	if (currentNode != NULL)				// Update the node value
@@ -194,8 +203,7 @@ void Window::on_xTransSlider_valueChanged(float value)
 	ui->myGLWidget->update(); 
 }
 
-void Window::on_yTransSlider_valueChanged(float value)
-{
+void Window::on_yTransSlider_valueChanged(float value){
 	ui->yTransSlideLabel->setNum(value);	// Set the label value
 	
 	if (currentNode != NULL)				// Update the node value
@@ -207,7 +215,6 @@ void Window::on_yTransSlider_valueChanged(float value)
 
 /***************************Scale Sliders*********************************/
 void Window::on_xScaleSlider_valueChanged(float value) {
-
 	ui->xScaleLabel->setNum(value);
 
 	if (currentNode != NULL)
@@ -215,8 +222,7 @@ void Window::on_xScaleSlider_valueChanged(float value) {
 	ui->myGLWidget->update();
 }
 
-void Window::on_yScaleSlider_valueChanged(float value)
-{
+void Window::on_yScaleSlider_valueChanged(float value){
 	ui->yScaleLabel->setNum(value);
 
 	if (currentNode != NULL)
@@ -225,20 +231,17 @@ void Window::on_yScaleSlider_valueChanged(float value)
 }
 
 /***************************Rotation Sliders*********************************/
-void Window::on_rotationDial_valueChanged(float angle)
-{
+void Window::on_rotationDial_valueChanged(float angle){
 	ui->rotationLabel->setNum(angle);
 
 	if (currentNode != NULL)
 		currentNode->setRotation(angle);
-//	if (currentNode != NULL)
-//		currentNode->traverse(currentNode, mat3::rotation2D(angle));
 	ui->myGLWidget->update();
 }
 
 /*Spawn Button creates an a new instance of animal*/
-void Window::on_spawnButton_clicked()
-{
+void Window::on_spawnButton_clicked(){
+
 	this->animate(8);
 	ui->myGLWidget->update();
 	ui->animSpinBox->setValue(1);
@@ -283,9 +286,14 @@ void Window::animate() {
 	this->animCount++;
 	this->animate(animCount);
 	ui->myGLWidget->update();
+	ui->timelineSlider->setValue(animCount);
 	ui->timelineSlider->update();
-	if (animCount > 8) {
-		this->animCount = 1;
+	if (animCount > this->userSpecified) {
+		this->animCount = 1;	
+		this->animate(animCount);
+		ui->myGLWidget->update();	
+		ui->timelineSlider->setValue(animCount);
+		ui->timelineSlider->update();
 		this->timer->stop();
 	}
 }
@@ -456,22 +464,14 @@ std::string getNewFileName() { // return a unique name
 
 	return "frame_" + s + ".jpg";	// append the current count onto the string
 }
-void Window::on_renderButton_clicked()
-{
-
+void Window::on_renderButton_clicked(){
 	QImage image = ui->myGLWidget->grabFrameBuffer();
 	std::string out;
 	out = getNewFileName();
 	image.save(QString::fromStdString(out));
-	/*
-	ui->timelineSlider->setValue(1);
-	ui->timelineSlider->update();
-	Sleep(1000);
-	ui->timelineSlider->setValue(2);
-	ui->timelineSlider->update();
-	Sleep(1000);
-	ui->timelineSlider->setValue(3);
-	ui->timelineSlider->update();
-	Sleep(1000);
-	*/
+}
+
+void Window::on_userSpinBox_valueChanged(int arg1)
+{
+	this->userSpecified = arg1;
 }

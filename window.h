@@ -29,6 +29,7 @@ public:
 		return m_color;
 	}
 	int animCount;
+	int userSpecified;
 	
 protected:
     void keyPressEvent(QKeyEvent *event);
@@ -45,6 +46,7 @@ protected:
 		void on_rotationDial_valueChanged(float angle); // Called when the slider is slid. 
 		void on_spawnButton_clicked();					// Called when the button is clicked. 
         void on_renderButton_clicked();				// Called when the button is clicked.
+		void on_userSpinBox_valueChanged(int arg1);
 		void on_timelineSlider_valueChanged(int value); // Called when the slider is slid. 
 		void on_animButton_clicked();
 		void animate();

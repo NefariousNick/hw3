@@ -52,6 +52,12 @@
           <height>100</height>
          </size>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>100</height>
+         </size>
+        </property>
         <property name="autoFillBackground">
          <bool>true</bool>
         </property>
@@ -304,26 +310,69 @@
        </widget>
       </item>
       <item row="4" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QSpinBox" name="animSpinBox">
-          <property name="minimum">
-           <number>1</number>
-          </property>
-          <property name="maximum">
-           <number>8</number>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QSpinBox" name="animSpinBox">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>8</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="animLabel">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>1</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QLabel" name="animLabel">
-          <property name="text">
-           <string>1</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QSpinBox" name="userSpinBox">
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>8</number>
+            </property>
+            <property name="value">
+             <number>8</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Specify</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
@@ -379,6 +428,12 @@
       </item>
       <item row="1" column="1">
        <widget class="QPushButton" name="animButton">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="text">
          <string>animate</string>
         </property>
@@ -720,8 +775,8 @@
      <y>650</y>
     </hint>
     <hint type="destinationlabel">
-     <x>539</x>
-     <y>681</y>
+     <x>516</x>
+     <y>710</y>
     </hint>
    </hints>
   </connection>
@@ -848,8 +903,8 @@
      <y>651</y>
     </hint>
     <hint type="destinationlabel">
-     <x>521</x>
-     <y>681</y>
+     <x>516</x>
+     <y>710</y>
     </hint>
    </hints>
   </connection>
@@ -864,8 +919,8 @@
      <y>646</y>
     </hint>
     <hint type="destinationlabel">
-     <x>480</x>
-     <y>714</y>
+     <x>512</x>
+     <y>675</y>
     </hint>
    </hints>
   </connection>
@@ -876,8 +931,8 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>492</x>
-     <y>712</y>
+     <x>524</x>
+     <y>673</y>
     </hint>
     <hint type="destinationlabel">
      <x>501</x>
