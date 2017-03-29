@@ -44,9 +44,15 @@
       <string>Transformations</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
-      <item row="5" column="1">
+      <item row="7" column="1">
        <widget class="QWidget" name="display" native="true">
         <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>100</height>
+         </size>
+        </property>
+        <property name="maximumSize">
          <size>
           <width>100</width>
           <height>100</height>
@@ -70,6 +76,12 @@
          <layout class="QHBoxLayout" name="xTransBox">
           <item>
            <widget class="QSlider" name="xTransSlider">
+            <property name="maximumSize">
+             <size>
+              <width>500</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -95,6 +107,12 @@
          <layout class="QHBoxLayout" name="yTransBox">
           <item>
            <widget class="QSlider" name="yTransSlider">
+            <property name="maximumSize">
+             <size>
+              <width>500</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -102,6 +120,12 @@
           </item>
           <item>
            <widget class="QLabel" name="yTransSlideLabel">
+            <property name="maximumSize">
+             <size>
+              <width>500</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="text">
              <string>TextLabel</string>
             </property>
@@ -111,7 +135,20 @@
         </item>
        </layout>
       </item>
-      <item row="5" column="0">
+      <item row="1" column="2">
+       <widget class="QPushButton" name="spawnButton">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Spawn Animal</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="2">
          <widget class="QLabel" name="label">
@@ -187,20 +224,6 @@
         </item>
        </layout>
       </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="animalButton">
-        <property name="text">
-         <string>Spawn Animal</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QPushButton" name="animateButton">
-        <property name="text">
-         <string>Animate</string>
-        </property>
-       </widget>
-      </item>
       <item row="4" column="2">
        <layout class="QVBoxLayout" name="xyScale">
         <item>
@@ -255,6 +278,104 @@
         </item>
        </layout>
       </item>
+      <item row="2" column="1">
+       <widget class="QSlider" name="timelineSlider">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>8</number>
+        </property>
+        <property name="value">
+         <number>1</number>
+        </property>
+        <property name="sliderPosition">
+         <number>1</number>
+        </property>
+        <property name="tracking">
+         <bool>true</bool>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="invertedAppearance">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QSpinBox" name="animSpinBox">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>8</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="animLabel">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>1</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QSpinBox" name="userSpinBox">
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>8</number>
+            </property>
+            <property name="value">
+             <number>8</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Specify</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
       <item row="1" column="0">
        <layout class="QVBoxLayout" name="Rotation">
         <property name="sizeConstraint">
@@ -274,6 +395,12 @@
          <layout class="QHBoxLayout" name="horizontalLayout_5">
           <item>
            <widget class="QLabel" name="rotationLabel">
+            <property name="maximumSize">
+             <size>
+              <width>500</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="layoutDirection">
              <enum>Qt::LeftToRight</enum>
             </property>
@@ -286,19 +413,29 @@
         </item>
        </layout>
       </item>
-      <item row="2" column="1">
-       <widget class="QSlider" name="timelineSlider">
+      <item row="7" column="2">
+       <widget class="QPushButton" name="renderButton">
         <property name="maximumSize">
          <size>
           <width>100</width>
           <height>16777215</height>
          </size>
         </property>
-        <property name="maximum">
-         <number>3</number>
+        <property name="text">
+         <string>Render</string>
         </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QPushButton" name="animButton">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>animate</string>
         </property>
        </widget>
       </item>
@@ -340,22 +477,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>yScaleSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>Window</receiver>
-   <slot>update()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>940</x>
-     <y>766</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>513</x>
-     <y>399</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>xTransSlider</sender>
    <signal>valueChanged(int)</signal>
    <receiver>Window</receiver>
@@ -372,29 +493,13 @@
    </hints>
   </connection>
   <connection>
-   <sender>yTransSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>Window</receiver>
-   <slot>update()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>137</x>
-     <y>766</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>513</x>
-     <y>399</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>animalButton</sender>
+   <sender>spawnButton</sender>
    <signal>clicked()</signal>
    <receiver>Window</receiver>
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>924</x>
+     <x>670</x>
      <y>591</y>
     </hint>
     <hint type="destinationlabel">
@@ -414,7 +519,7 @@
      <y>802</y>
     </hint>
     <hint type="destinationlabel">
-     <x>414</x>
+     <x>412</x>
      <y>802</y>
     </hint>
    </hints>
@@ -430,7 +535,7 @@
      <y>835</y>
     </hint>
     <hint type="destinationlabel">
-     <x>414</x>
+     <x>412</x>
      <y>835</y>
     </hint>
    </hints>
@@ -446,7 +551,7 @@
      <y>868</y>
     </hint>
     <hint type="destinationlabel">
-     <x>414</x>
+     <x>412</x>
      <y>868</y>
     </hint>
    </hints>
@@ -458,7 +563,7 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>414</x>
+     <x>412</x>
      <y>802</y>
     </hint>
     <hint type="destinationlabel">
@@ -474,7 +579,7 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>414</x>
+     <x>412</x>
      <y>835</y>
     </hint>
     <hint type="destinationlabel">
@@ -490,7 +595,7 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>414</x>
+     <x>412</x>
      <y>868</y>
     </hint>
     <hint type="destinationlabel">
@@ -500,18 +605,18 @@
    </hints>
   </connection>
   <connection>
-   <sender>animateButton</sender>
+   <sender>renderButton</sender>
    <signal>clicked()</signal>
-   <receiver>animateButton</receiver>
-   <slot>click()</slot>
+   <receiver>Window</receiver>
+   <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>563</x>
-     <y>592</y>
+     <x>670</x>
+     <y>839</y>
     </hint>
     <hint type="destinationlabel">
-     <x>521</x>
-     <y>581</y>
+     <x>513</x>
+     <y>449</y>
     </hint>
    </hints>
   </connection>
@@ -542,7 +647,7 @@
      <y>712</y>
     </hint>
     <hint type="destinationlabel">
-     <x>454</x>
+     <x>452</x>
      <y>712</y>
     </hint>
    </hints>
@@ -558,7 +663,7 @@
      <y>766</y>
     </hint>
     <hint type="destinationlabel">
-     <x>454</x>
+     <x>452</x>
      <y>766</y>
     </hint>
    </hints>
@@ -592,6 +697,262 @@
     <hint type="destinationlabel">
      <x>1002</x>
      <y>766</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>yScaleSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>Window</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>940</x>
+     <y>766</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>513</x>
+     <y>399</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>yTransSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>Window</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>137</x>
+     <y>766</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>513</x>
+     <y>399</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rotationDial</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>Window</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>73</x>
+     <y>577</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>513</x>
+     <y>449</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>timelineSlider</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>Window</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>513</x>
+     <y>647</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>513</x>
+     <y>449</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>timelineSlider</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>animLabel</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>528</x>
+     <y>650</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>516</x>
+     <y>710</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>blueSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>Window</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>192</x>
+     <y>857</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>513</x>
+     <y>449</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>redSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>Window</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>192</x>
+     <y>791</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>513</x>
+     <y>449</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>greenSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>Window</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>192</x>
+     <y>824</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>513</x>
+     <y>449</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>redSpinBox</sender>
+   <signal>valueChanged(QString)</signal>
+   <receiver>Window</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>391</x>
+     <y>791</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>513</x>
+     <y>449</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>greenSpinBox</sender>
+   <signal>valueChanged(QString)</signal>
+   <receiver>Window</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>391</x>
+     <y>824</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>513</x>
+     <y>449</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>blueSpinBox</sender>
+   <signal>valueChanged(QString)</signal>
+   <receiver>Window</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>391</x>
+     <y>857</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>513</x>
+     <y>449</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>renderButton</sender>
+   <signal>clicked()</signal>
+   <receiver>myGLWidget</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>611</x>
+     <y>832</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>661</x>
+     <y>427</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>timelineSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>animLabel</receiver>
+   <slot>setNum(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>551</x>
+     <y>651</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>516</x>
+     <y>710</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>timelineSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>animSpinBox</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>469</x>
+     <y>646</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>512</x>
+     <y>675</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>animSpinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>timelineSlider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>524</x>
+     <y>673</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>501</x>
+     <y>653</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>animButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Window</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>513</x>
+     <y>578</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>513</x>
+     <y>449</y>
     </hint>
    </hints>
   </connection>
