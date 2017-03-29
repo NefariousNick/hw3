@@ -1,0 +1,8 @@
+*.tlog
+*.log
+*.opendb
+SimpleQtOGL.VC.db
+*.db
+render.h
+*.pdb
+x64/Debug/SimpleQtOGL.ilk

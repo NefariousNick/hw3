@@ -27,6 +27,8 @@ public:
 
 	void populateTree(QStandardItemModel* model, Node* root);
 	Node* root;					//static pointer to the root
+	Node* root2;
+	Node* root3;
 	QColor color() const {
 		return m_color;
 	}
@@ -45,6 +47,7 @@ protected:
 		void on_yScaleSlider_valueChanged(float value);
 		void on_rotationDial_valueChanged(float angle);
 		void on_animalButton_clicked();
+		void on_timelineSlider_valueChanged(int value);
 	private slots:
 		void onColorChanged();
 

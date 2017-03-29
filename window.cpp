@@ -71,6 +71,7 @@ Window::Window(QWidget *parent) :		// Window constructor
 	root->traverse();
 
 
+
 	//****************************************************************************
 	// You should be able to traverse your scene graph and set these up as you traverse or you can do it as you create your scene graph. 
 	// Also, realize you will need to create and delete these items when you create and delete nodes in your scene graph
@@ -117,6 +118,10 @@ Window::Window(QWidget *parent) :		// Window constructor
 	itemG->setData(QVariant::fromValue(d));
 	itemB->appendRow(itemG);
 
+	d = creature->tail;
+	QStandardItem* itemH = new QStandardItem(QString::fromStdString(d->getName()));
+	itemH->setData(QVariant::fromValue(d));
+	itemB->appendRow(itemH);
 	//*******************************************************8
 	ui->treeView->setModel(model); // ui needs to include treeView, so create one in Qt Creator and make sure it is named treeView
 								   // in the ui, I also made the header of the treeView not visible. 
@@ -131,10 +136,10 @@ Window::Window(QWidget *parent) :		// Window constructor
 	ui->xScaleSlider->setVisible(FALSE);
 	ui->yScaleSlider->setVisible(FALSE);
 	ui->rotationDial->setVisible(FALSE);
-	ui->xTransSlider->setMinimum(0); ui->xTransSlider->setMaximum(50); ui->xTransSlider->setSingleStep(1); // These are just sample to show how to do it. You decide on appropriate values. To use floats instead of ints, divide the values the sliders return by 100.0
-	ui->yTransSlider->setMinimum(0); ui->yTransSlider->setMaximum(50); ui->yTransSlider->setSingleStep(1);
-	ui->xScaleSlider->setMinimum(0); ui->xScaleSlider->setMaximum(10); ui->xScaleSlider->setSingleStep(1);
-	ui->yScaleSlider->setMinimum(0); ui->yScaleSlider->setMaximum(10); ui->yScaleSlider->setSingleStep(1);
+	ui->xTransSlider->setMinimum(-8); ui->xTransSlider->setMaximum(7); ui->xTransSlider->setSingleStep(1); // These are just sample to show how to do it. You decide on appropriate values. To use floats instead of ints, divide the values the sliders return by 100.0
+	ui->yTransSlider->setMinimum(-8); ui->yTransSlider->setMaximum(7); ui->yTransSlider->setSingleStep(1);
+	ui->xScaleSlider->setMinimum(-10); ui->xScaleSlider->setMaximum(10); ui->xScaleSlider->setSingleStep(1);
+	ui->yScaleSlider->setMinimum(-10); ui->yScaleSlider->setMaximum(10); ui->yScaleSlider->setSingleStep(1);
 	ui->rotationDial->setMinimum(0); ui->rotationDial->setMaximum(360); ui->rotationDial->setSingleStep(1);
 
 
@@ -279,4 +284,79 @@ void Window::onColorChanged()
 	ui->display->setPalette(pal);
 	
 	emit colorChanged(m_color);
+}
+
+//create a new animal, set root equal to the new animal
+//apply animation transformations depending on the value selected
+//clear screen, traverse animal
+void Window::on_timelineSlider_valueChanged(int value)
+{
+	animal* creature = new animal();
+	if (value == 1) {
+		this->root = creature->root;
+	}
+	if (value == 2) {
+		this->root = creature->root;
+		root->setTranslation(2, 3);
+	}
+
+	if (value == 3) {
+		this->root = creature->root;
+		root->setTranslation(2, 3);
+		root->setRotation(30);
+	}
+	ui->myGLWidget->qglClearColor(Qt::white);
+	root->traverse();
+
+	model = new QStandardItemModel();
+	//model = new QListView();			// Tree views have to be populated with models, so create one
+	Node* d;							// head node 
+	d = creature->root;
+	QStandardItem* itemA = new QStandardItem(QString::fromStdString(d->getName()));
+	itemA->setData(QVariant::fromValue(d));
+	model->appendRow(itemA);
+
+	//itemB = body
+	d = creature->body;
+	QStandardItem* itemB = new QStandardItem(QString::fromStdString(d->getName()));
+	itemB->setData(QVariant::fromValue(d));
+	itemA->appendRow(itemB);
+
+	//itemC = head
+	d = creature->head;
+	QStandardItem* itemC = new QStandardItem(QString::fromStdString(d->getName()));
+	itemC->setData(QVariant::fromValue(d));
+	itemB->appendRow(itemC);
+
+	d = creature->legF1;
+	QStandardItem* itemD = new QStandardItem(QString::fromStdString(d->getName()));
+	itemD->setData(QVariant::fromValue(d));
+	itemB->appendRow(itemD);
+
+	d = creature->legF2;
+	QStandardItem* itemE = new QStandardItem(QString::fromStdString(d->getName()));
+	itemE->setData(QVariant::fromValue(d));
+	itemB->appendRow(itemE);
+
+	d = creature->legF3;
+	QStandardItem* itemF = new QStandardItem(QString::fromStdString(d->getName()));
+	itemF->setData(QVariant::fromValue(d));
+	itemB->appendRow(itemF);
+
+	d = creature->legF4;
+	QStandardItem* itemG = new QStandardItem(QString::fromStdString(d->getName()));
+	itemG->setData(QVariant::fromValue(d));
+	itemB->appendRow(itemG);
+
+	d = creature->tail;
+	QStandardItem* itemH = new QStandardItem(QString::fromStdString(d->getName()));
+	itemH->setData(QVariant::fromValue(d));
+	itemB->appendRow(itemH);
+	//*******************************************************8
+	ui->treeView->setModel(model); // ui needs to include treeView, so create one in Qt Creator and make sure it is named treeView
+								   // in the ui, I also made the header of the treeView not visible. 
+	ui->treeView->expandAll();		// show all of the items at all levels 
+
+
+
 }

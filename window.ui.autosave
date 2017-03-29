@@ -294,6 +294,9 @@
           <height>16777215</height>
          </size>
         </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
         <property name="maximum">
          <number>3</number>
         </property>
@@ -592,6 +595,38 @@
     <hint type="destinationlabel">
      <x>513</x>
      <y>399</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rotationDial</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>Window</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>73</x>
+     <y>577</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>513</x>
+     <y>449</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>timelineSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>Window</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>513</x>
+     <y>647</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>513</x>
+     <y>449</y>
     </hint>
    </hints>
   </connection>

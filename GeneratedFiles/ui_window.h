@@ -329,9 +329,7 @@ public:
 
         retranslateUi(Window);
         QObject::connect(xScaleSlider, SIGNAL(valueChanged(int)), Window, SLOT(update()));
-        QObject::connect(yScaleSlider, SIGNAL(valueChanged(int)), Window, SLOT(update()));
         QObject::connect(xTransSlider, SIGNAL(valueChanged(int)), Window, SLOT(update()));
-        QObject::connect(yTransSlider, SIGNAL(valueChanged(int)), Window, SLOT(update()));
         QObject::connect(animalButton, SIGNAL(clicked()), Window, SLOT(update()));
         QObject::connect(redSlider, SIGNAL(valueChanged(int)), redSpinBox, SLOT(setValue(int)));
         QObject::connect(greenSlider, SIGNAL(valueChanged(int)), greenSpinBox, SLOT(setValue(int)));
@@ -345,6 +343,8 @@ public:
         QObject::connect(yTransSlider, SIGNAL(valueChanged(int)), yTransSlideLabel, SLOT(setNum(int)));
         QObject::connect(xScaleSlider, SIGNAL(valueChanged(int)), xScaleLabel, SLOT(setNum(int)));
         QObject::connect(yScaleSlider, SIGNAL(valueChanged(int)), yScaleLabel, SLOT(setNum(int)));
+        QObject::connect(yScaleSlider, SIGNAL(valueChanged(int)), Window, SLOT(update()));
+        QObject::connect(yTransSlider, SIGNAL(valueChanged(int)), Window, SLOT(update()));
 
         QMetaObject::connectSlotsByName(Window);
     } // setupUi
