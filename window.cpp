@@ -55,39 +55,37 @@ Window::Window(QWidget *parent) :		// Window constructor
 	QStandardItem* itemA = new QStandardItem(QString::fromStdString(d->getName()));
 	itemA->setData(QVariant::fromValue(d));
 	model->appendRow(itemA);
-
 	//itemB = body
 	d = creature->body;
 	QStandardItem* itemB = new QStandardItem(QString::fromStdString(d->getName()));
 	itemB->setData(QVariant::fromValue(d));
 	itemA->appendRow(itemB);
-
 	//itemC = head
 	d = creature->head;
 	QStandardItem* itemC = new QStandardItem(QString::fromStdString(d->getName()));
 	itemC->setData(QVariant::fromValue(d));
 	itemB->appendRow(itemC);
-
+	//leg
 	d = creature->legF1;
 	QStandardItem* itemD = new QStandardItem(QString::fromStdString(d->getName()));
 	itemD->setData(QVariant::fromValue(d));
 	itemB->appendRow(itemD);
-
+	//leg
 	d = creature->legF2;
 	QStandardItem* itemE = new QStandardItem(QString::fromStdString(d->getName()));
 	itemE->setData(QVariant::fromValue(d));
 	itemB->appendRow(itemE);
-
+	//leg
 	d = creature->legF3;
 	QStandardItem* itemF = new QStandardItem(QString::fromStdString(d->getName()));
 	itemF->setData(QVariant::fromValue(d));
 	itemB->appendRow(itemF);
-
+	//leg
 	d = creature->legF4;
 	QStandardItem* itemG = new QStandardItem(QString::fromStdString(d->getName()));
 	itemG->setData(QVariant::fromValue(d));
 	itemB->appendRow(itemG);
-
+	//tail
 	d = creature->tail;
 	QStandardItem* itemH = new QStandardItem(QString::fromStdString(d->getName()));
 	itemH->setData(QVariant::fromValue(d));
@@ -108,12 +106,12 @@ Window::Window(QWidget *parent) :		// Window constructor
 	ui->rotationDial->setVisible(FALSE);
 	ui->xTransSlider->setMinimum(-8);	ui->xTransSlider->setMaximum(7);	ui->xTransSlider->setSingleStep(1); // These are just sample to show how to do it. You decide on appropriate values. To use floats instead of ints, divide the values the sliders return by 100.0
 	ui->yTransSlider->setMinimum(-8);	ui->yTransSlider->setMaximum(7);	ui->yTransSlider->setSingleStep(1);
-	ui->xScaleSlider->setMinimum(-10);	ui->xScaleSlider->setMaximum(10);	ui->xScaleSlider->setSingleStep(1);
-	ui->yScaleSlider->setMinimum(-10);	ui->yScaleSlider->setMaximum(10);	ui->yScaleSlider->setSingleStep(1);
+	ui->xScaleSlider->setMinimum(0);	ui->xScaleSlider->setMaximum(50);	ui->xScaleSlider->setSingleStep(1);
+	ui->yScaleSlider->setMinimum(0);	ui->yScaleSlider->setMaximum(50);	ui->yScaleSlider->setSingleStep(1);
 	ui->rotationDial->setMinimum(0);	ui->rotationDial->setMaximum(360);	ui->rotationDial->setSingleStep(1);
-	ui->animLabel->setText("8");
-	ui->animSpinBox->setValue(8);
-	ui->timelineSlider->setMinimum(1);	ui->timelineSlider->setMaximum(8);	ui->timelineSlider->setValue(8);
+	ui->animLabel->setText("1");
+	ui->animSpinBox->setValue(1);
+	ui->timelineSlider->setMinimum(1);	ui->timelineSlider->setMaximum(8);//	ui->timelineSlider->setValue(1);
 
 
 	// When a user moves a slider or rotation dial, update the label value to show it. 
@@ -124,6 +122,12 @@ Window::Window(QWidget *parent) :		// Window constructor
 	connect(ui->rotationDial, &QDial::valueChanged, this, &Window::on_rotationDial_valueChanged);
 
 	currentNode = NULL;  // Currently no node in the treeView is selected, so reflect that. 
+	//****************************************************************************
+	//animation stuff
+	this->animCount = 1;
+	timer = new QTimer(this);
+	connect(timer, SIGNAL(timeout()), this, SLOT(animate()));
+	
 }
 
 
@@ -182,12 +186,9 @@ void Window::on_treeView_currentItemChanged(const QItemSelection &selected, cons
 void Window::on_xTransSlider_valueChanged(float value)
 {
 	ui->xTransSlideLabel->setNum(value);	// Set the label value
-
-											// Update the node value
-//	if (currentNode != NULL)
-//		currentNode->setTranslation(value,0);
-	if (currentNode != NULL)
-		currentNode->traverse(currentNode, mat3::translation2D(value, 0));
+							
+	if (currentNode != NULL)				// Update the node value
+		currentNode->setTranslation(value,0);
 
 	// Update the OpenGL window
 	ui->myGLWidget->update(); 
@@ -197,11 +198,8 @@ void Window::on_yTransSlider_valueChanged(float value)
 {
 	ui->yTransSlideLabel->setNum(value);	// Set the label value
 	
-											// Update the node value
-//	if (currentNode != NULL)
-//		currentNode->setTranslation(0, value);	
-	if (currentNode != NULL)
-		currentNode->traverse(currentNode, mat3::translation2D(0, value));
+	if (currentNode != NULL)				// Update the node value
+		currentNode->setTranslation(0, value);
 
 	// Update the OpenGL window
 	ui->myGLWidget->update();
@@ -231,19 +229,25 @@ void Window::on_rotationDial_valueChanged(float angle)
 {
 	ui->rotationLabel->setNum(angle);
 
-//	if (currentNode != NULL)
-//		currentNode->setRotation(angle);
 	if (currentNode != NULL)
-		currentNode->traverse(currentNode, mat3::rotation2D(angle));
+		currentNode->setRotation(angle);
+//	if (currentNode != NULL)
+//		currentNode->traverse(currentNode, mat3::rotation2D(angle));
 	ui->myGLWidget->update();
 }
 
+/*Spawn Button creates an a new instance of animal*/
 void Window::on_spawnButton_clicked()
 {
-	this->animate(1);
+	this->animate(8);
 	ui->myGLWidget->update();
+	ui->animSpinBox->setValue(1);
+	ui->animLabel->setText("1");
+	ui->timelineSlider->setValue(1);
+	update();
 }
 
+//Handles the three color sliders (red, green, blue) for a selected object
 void Window::onColorChanged()
 {
 	m_color.setRgb(ui->redSlider->value(), ui->greenSlider->value(),
@@ -261,6 +265,7 @@ void Window::onColorChanged()
 	ui->myGLWidget->update();
 }
 
+//slider that can manually go through the timeline
 //pass to animate
 void Window::on_timelineSlider_valueChanged(int value)
 {
@@ -268,40 +273,60 @@ void Window::on_timelineSlider_valueChanged(int value)
 	ui->myGLWidget->update();
 }
 
+//every 1s, timer will call animate
+void Window::on_animButton_clicked()
+{	
+	this->timer->start(1000);
+}
+
+void Window::animate() {
+	this->animCount++;
+	this->animate(animCount);
+	ui->myGLWidget->update();
+	ui->timelineSlider->update();
+	if (animCount > 8) {
+		this->animCount = 1;
+		this->timer->stop();
+	}
+}
 //create a new animal, set root equal to the new animal
 //apply animation transformations depending on the value selected
 //clear screen, traverse animal
 void Window::animate(int value)
 {
 	animal* creature = new animal();
-
+/*
 	switch (value) {
 	case 1:
 		this->root = creature->root;
 	case 2:
 		this->root = creature->root;
 		root->setTranslation(1, 1);
+		root->setRotation(2);
 		creature->legF2->setRotation(160);
+		break;
 	case 3:
 		this->root = creature->root;
 		root->setTranslation(1, 2);
 		root->setRotation(2);
 		creature->legF1->setRotation(210);
 		creature->head->setColor(.3, .3, 1);
+		break;
 	case 4:
 		this->root = creature->root;
-		root->setTranslation(1, 2);
+		root->setTranslation(2, 3);
 		root->setRotation(3);
-		creature->legF2->setRotation(160);
+		creature->legF2->setRotation(210);
+		break;
 	case 5:
 		this->root = creature->root;
-		root->setTranslation(1, 1);
+		root->setTranslation(3, 4);
 		root->setRotation(4);
-		creature->legF1->setRotation(210);
+		creature->legF1->setRotation(160);
 		creature->head->setColor(.3, .3, 1);
 	case 6:
 		this->root = creature->root;
-		root->setTranslation(1, 0);
+		root->setTranslation(5, 6);
 		root->setRotation(5);
 		creature->legF2->setRotation(160);
 	case 7:
@@ -311,6 +336,58 @@ void Window::animate(int value)
 		creature->head->setColor(.3, .3, 1);
 	case 8:
 		this->root = creature->root;
+	default:
+		this->root = creature->root;
+
+	}*/
+	switch (value) {
+	case 1:
+		this->root = creature->root;
+		break;
+	case 2:
+		this->root = creature->root;
+	
+		root->setTranslation(1, 1);
+		creature->legF2->setRotation(160);
+		break;
+	case 3:
+		this->root = creature->root;
+		root->setTranslation(1, 2);
+		root->setRotation(2);
+		creature->legF1->setRotation(210);
+		creature->head->setColor(.3, .3, 1);
+		break;
+	case 4:
+		this->root = creature->root;
+		root->setTranslation(1, 2);
+		root->setRotation(3);
+		creature->legF2->setRotation(160);
+		break;
+	case 5:
+		this->root = creature->root;
+		root->setTranslation(1, 1);
+		root->setRotation(4);
+		creature->legF1->setRotation(210);
+		creature->head->setColor(.3, .3, 1);
+		break;
+	case 6:
+		this->root = creature->root;
+		root->setTranslation(1, 0);
+		root->setRotation(5);
+		creature->legF2->setRotation(160);
+		break;
+	case 7:
+		this->root = creature->root;
+		root->setRotation(6);
+		creature->legF1->setRotation(210);
+		creature->head->setColor(.3, .3, 1);
+		break;
+	case 8:
+		this->root = creature->root;
+		break;
+	default:
+		this->root = creature->root;
+		break;
 	}
 
 	ui->myGLWidget->qglClearColor(Qt::white);
@@ -369,36 +446,32 @@ void Window::animate(int value)
 
 	ui->myGLWidget->update();
 }
+std::string getNewFileName() { // return a unique name 
+	static int files = 0;	// keep counting the number of objects
 
+	std::string s;
+	std::stringstream out;	// a stream for outputing to a string
+	out << files++;			// make the current count into a string
+	s = out.str();
+
+	return "frame_" + s + ".jpg";	// append the current count onto the string
+}
 void Window::on_renderButton_clicked()
 {
+
+	QImage image = ui->myGLWidget->grabFrameBuffer();
+	std::string out;
+	out = getNewFileName();
+	image.save(QString::fromStdString(out));
 	/*
-	this->animate(1);
 	ui->timelineSlider->setValue(1);
-	ui->animLabel->setText("1");
-	ui->myGLWidget->update();
-	update();
+	ui->timelineSlider->update();
 	Sleep(1000);
-	this->animate(2);
-	ui->animLabel->setText("2");
 	ui->timelineSlider->setValue(2);
-	ui->myGLWidget->update();
-	update();
+	ui->timelineSlider->update();
 	Sleep(1000);
-	this->animate(2);
-	ui->animLabel->setText("3");
 	ui->timelineSlider->setValue(3);
-	ui->myGLWidget->update();
-	update();
+	ui->timelineSlider->update();
 	Sleep(1000);
 	*/
-	ui->timelineSlider->setValue(1);
-	ui->timelineSlider->update();
-	Sleep(1000);
-	ui->timelineSlider->setValue(2);
-	ui->timelineSlider->update();
-	Sleep(1000);
-	ui->timelineSlider->setValue(3);
-	ui->timelineSlider->update();
-	Sleep(1000);
 }

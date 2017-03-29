@@ -137,28 +137,35 @@ void Node::traverse(Node* parent,mat3 transform) {
 	}//end iterative for-loop
 		
 }
+
 //using mat3 rotation, set the rotation of this node using the provided angle
 void Node::setRotation(float angle){
 	//*(this->rot) = *(this->rot)*mat3::rotation2D(angle);
 	*(this->rot) = mat3::rotation2D(angle);
+	this->traverse(this, (*rot));
 }
 
 //using mat3 translation, set the translation of this node using the provided x and y
 void Node::setTranslation(float x,float y){
-	*(this->trans) = *(this->trans)*mat3::translation2D(x,y);
+	//*(this->trans) = *(this->trans)*mat3::translation2D(x,y);
 	//*(this->trans) = mat3::translation2D(x, y)*(*(this->trans));
+	*(this->trans) = mat3::translation2D(x, y);
+	this->traverse(this, (*trans));
 }
 
 //using mat3 scale, set the scale of this node using the provided x and y
 void Node::setScale(float x, float y){
 	//*(this->scale) = *(this->scale)*mat3::scale2D(x, y);
-	*(this->scale) = mat3::scale2D(x, y)*(*(this->scale));
+	//*(this->scale) = mat3::scale2D(x, y)*(*(this->scale));
+	*(this->scale) = mat3::scale2D(x, y);
+	this->traverse(this, (*scale));
+
 }
 void Node::setColor(float x, float y, float z)
 {
 	this->p.setColor(x, y, z);
 }
-//return inverse cos
+
 mat3* Node::getRot() {
 	return this->rot;
 }
@@ -170,7 +177,7 @@ mat3* Node::getTrans() {
 mat3* Node::getScale() {
 	return this->scale;
 }
-
+//return inverse cos
 int Node::getRotation() {
 	return acos(rot->getColumn(0)[0]);
 }

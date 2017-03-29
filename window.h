@@ -21,12 +21,14 @@ class Window : public QWidget
 	Q_PROPERTY(QColor color READ color NOTIFY colorChanged)
 public:
     explicit Window(QWidget *parent = 0);
-    ~Window();
+    ~Window(); 
+	QStandardItemModel* model;
 	void animate(int value);
 	Node* root;					//static pointer to the root
 	QColor color() const {
 		return m_color;
 	}
+	int animCount;
 	
 protected:
     void keyPressEvent(QKeyEvent *event);
@@ -44,18 +46,23 @@ protected:
 		void on_spawnButton_clicked();					// Called when the button is clicked. 
         void on_renderButton_clicked();				// Called when the button is clicked.
 		void on_timelineSlider_valueChanged(int value); // Called when the slider is slid. 
+		void on_animButton_clicked();
+		void animate();
 	private slots:
 		void onColorChanged();
 
 private:
     Ui::Window *ui;				// A Qt internal mechanism
-	QStandardItemModel* model;
+	//QStandardItemModel* model;
 	//QListView* model;			// Links Qt with your scene graph 
 	Node* currentNode;			// A pointer to the currently selected "node"
 
 	QProgressBar *progressBar;
 	QTimeLine *timeline;
 	QColor m_color;
+
+	QTimer* timer;
+
 };
 
 #endif // WINDOW_H

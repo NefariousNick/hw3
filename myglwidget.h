@@ -18,6 +18,7 @@ class MyGLWidget : public QGLWidget  // MyGLWidget is a sub-class of QGLWidget a
 public:
     explicit MyGLWidget(QWidget *parent = 0);	// Constructor: This might be where your animal (scene graph and primitves) get created?
     ~MyGLWidget();								// Destructor
+	float colorInc;
 
 signals:			// Qt uses signals and slots to connect QUI elements. Don't worry about these right now. 
 public slots:
