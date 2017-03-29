@@ -48,6 +48,7 @@ public:
     QHBoxLayout *yTransBox;
     QSlider *yTransSlider;
     QLabel *yTransSlideLabel;
+    QPushButton *spawnButton;
     QGridLayout *gridLayout_2;
     QLabel *label;
     QLabel *label_3;
@@ -58,7 +59,6 @@ public:
     QSpinBox *redSpinBox;
     QSpinBox *greenSpinBox;
     QSpinBox *blueSpinBox;
-    QPushButton *animalButton;
     QPushButton *animateButton;
     QVBoxLayout *xyScale;
     QLabel *xScaleDescriptionLabel;
@@ -69,12 +69,15 @@ public:
     QHBoxLayout *horizontalLayout_9;
     QSlider *yScaleSlider;
     QLabel *yScaleLabel;
+    QSlider *timelineSlider;
+    QHBoxLayout *horizontalLayout_2;
+    QSpinBox *animSpinBox;
+    QLabel *animLabel;
     QVBoxLayout *Rotation;
     QLabel *RotDescriptionLabel;
     QDial *rotationDial;
     QHBoxLayout *horizontalLayout_5;
     QLabel *rotationLabel;
-    QSlider *timelineSlider;
 
     void setupUi(QWidget *Window)
     {
@@ -114,7 +117,7 @@ public:
         display->setMinimumSize(QSize(100, 100));
         display->setAutoFillBackground(true);
 
-        gridLayout_3->addWidget(display, 5, 1, 1, 1);
+        gridLayout_3->addWidget(display, 7, 1, 1, 1);
 
         xyTranslation = new QVBoxLayout();
         xyTranslation->setSpacing(6);
@@ -129,6 +132,7 @@ public:
         xTransBox->setObjectName(QStringLiteral("xTransBox"));
         xTransSlider = new QSlider(TransformsBox);
         xTransSlider->setObjectName(QStringLiteral("xTransSlider"));
+        xTransSlider->setMaximumSize(QSize(500, 16777215));
         xTransSlider->setOrientation(Qt::Horizontal);
 
         xTransBox->addWidget(xTransSlider);
@@ -151,12 +155,14 @@ public:
         yTransBox->setObjectName(QStringLiteral("yTransBox"));
         yTransSlider = new QSlider(TransformsBox);
         yTransSlider->setObjectName(QStringLiteral("yTransSlider"));
+        yTransSlider->setMaximumSize(QSize(500, 16777215));
         yTransSlider->setOrientation(Qt::Horizontal);
 
         yTransBox->addWidget(yTransSlider);
 
         yTransSlideLabel = new QLabel(TransformsBox);
         yTransSlideLabel->setObjectName(QStringLiteral("yTransSlideLabel"));
+        yTransSlideLabel->setMaximumSize(QSize(500, 16777215));
 
         yTransBox->addWidget(yTransSlideLabel);
 
@@ -165,6 +171,11 @@ public:
 
 
         gridLayout_3->addLayout(xyTranslation, 4, 0, 1, 1);
+
+        spawnButton = new QPushButton(TransformsBox);
+        spawnButton->setObjectName(QStringLiteral("spawnButton"));
+
+        gridLayout_3->addWidget(spawnButton, 1, 2, 1, 1);
 
         gridLayout_2 = new QGridLayout();
         gridLayout_2->setSpacing(6);
@@ -224,12 +235,7 @@ public:
         gridLayout_2->addWidget(blueSpinBox, 3, 1, 1, 1);
 
 
-        gridLayout_3->addLayout(gridLayout_2, 5, 0, 1, 1);
-
-        animalButton = new QPushButton(TransformsBox);
-        animalButton->setObjectName(QStringLiteral("animalButton"));
-
-        gridLayout_3->addWidget(animalButton, 1, 2, 1, 1);
+        gridLayout_3->addLayout(gridLayout_2, 7, 0, 1, 1);
 
         animateButton = new QPushButton(TransformsBox);
         animateButton->setObjectName(QStringLiteral("animateButton"));
@@ -286,6 +292,37 @@ public:
 
         gridLayout_3->addLayout(xyScale, 4, 2, 1, 1);
 
+        timelineSlider = new QSlider(TransformsBox);
+        timelineSlider->setObjectName(QStringLiteral("timelineSlider"));
+        timelineSlider->setMaximumSize(QSize(100, 16777215));
+        timelineSlider->setMinimum(1);
+        timelineSlider->setMaximum(8);
+        timelineSlider->setValue(8);
+        timelineSlider->setSliderPosition(8);
+        timelineSlider->setTracking(true);
+        timelineSlider->setOrientation(Qt::Horizontal);
+        timelineSlider->setInvertedAppearance(false);
+
+        gridLayout_3->addWidget(timelineSlider, 2, 1, 1, 1);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        animSpinBox = new QSpinBox(TransformsBox);
+        animSpinBox->setObjectName(QStringLiteral("animSpinBox"));
+        animSpinBox->setMinimum(1);
+        animSpinBox->setMaximum(8);
+
+        horizontalLayout_2->addWidget(animSpinBox);
+
+        animLabel = new QLabel(TransformsBox);
+        animLabel->setObjectName(QStringLiteral("animLabel"));
+
+        horizontalLayout_2->addWidget(animLabel);
+
+
+        gridLayout_3->addLayout(horizontalLayout_2, 4, 1, 1, 1);
+
         Rotation = new QVBoxLayout();
         Rotation->setSpacing(6);
         Rotation->setObjectName(QStringLiteral("Rotation"));
@@ -305,6 +342,7 @@ public:
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
         rotationLabel = new QLabel(TransformsBox);
         rotationLabel->setObjectName(QStringLiteral("rotationLabel"));
+        rotationLabel->setMaximumSize(QSize(500, 16777215));
         rotationLabel->setLayoutDirection(Qt::LeftToRight);
 
         horizontalLayout_5->addWidget(rotationLabel);
@@ -315,14 +353,6 @@ public:
 
         gridLayout_3->addLayout(Rotation, 1, 0, 1, 1);
 
-        timelineSlider = new QSlider(TransformsBox);
-        timelineSlider->setObjectName(QStringLiteral("timelineSlider"));
-        timelineSlider->setMaximumSize(QSize(100, 16777215));
-        timelineSlider->setMaximum(3);
-        timelineSlider->setOrientation(Qt::Horizontal);
-
-        gridLayout_3->addWidget(timelineSlider, 2, 1, 1, 1);
-
 
         gridLayout->addWidget(TransformsBox, 1, 0, 1, 1, Qt::AlignTop);
 
@@ -330,14 +360,13 @@ public:
         retranslateUi(Window);
         QObject::connect(xScaleSlider, SIGNAL(valueChanged(int)), Window, SLOT(update()));
         QObject::connect(xTransSlider, SIGNAL(valueChanged(int)), Window, SLOT(update()));
-        QObject::connect(animalButton, SIGNAL(clicked()), Window, SLOT(update()));
+        QObject::connect(spawnButton, SIGNAL(clicked()), Window, SLOT(update()));
         QObject::connect(redSlider, SIGNAL(valueChanged(int)), redSpinBox, SLOT(setValue(int)));
         QObject::connect(greenSlider, SIGNAL(valueChanged(int)), greenSpinBox, SLOT(setValue(int)));
         QObject::connect(blueSlider, SIGNAL(valueChanged(int)), blueSpinBox, SLOT(setValue(int)));
         QObject::connect(redSpinBox, SIGNAL(valueChanged(int)), redSlider, SLOT(setValue(int)));
         QObject::connect(greenSpinBox, SIGNAL(valueChanged(int)), greenSlider, SLOT(setValue(int)));
         QObject::connect(blueSpinBox, SIGNAL(valueChanged(int)), blueSlider, SLOT(setValue(int)));
-        QObject::connect(animateButton, SIGNAL(clicked()), animateButton, SLOT(click()));
         QObject::connect(rotationDial, SIGNAL(valueChanged(int)), rotationLabel, SLOT(setNum(int)));
         QObject::connect(xTransSlider, SIGNAL(valueChanged(int)), xTransSlideLabel, SLOT(setNum(int)));
         QObject::connect(yTransSlider, SIGNAL(valueChanged(int)), yTransSlideLabel, SLOT(setNum(int)));
@@ -345,6 +374,20 @@ public:
         QObject::connect(yScaleSlider, SIGNAL(valueChanged(int)), yScaleLabel, SLOT(setNum(int)));
         QObject::connect(yScaleSlider, SIGNAL(valueChanged(int)), Window, SLOT(update()));
         QObject::connect(yTransSlider, SIGNAL(valueChanged(int)), Window, SLOT(update()));
+        QObject::connect(rotationDial, SIGNAL(valueChanged(int)), Window, SLOT(update()));
+        QObject::connect(timelineSlider, SIGNAL(sliderMoved(int)), Window, SLOT(update()));
+        QObject::connect(timelineSlider, SIGNAL(sliderMoved(int)), animLabel, SLOT(setNum(int)));
+        QObject::connect(blueSlider, SIGNAL(valueChanged(int)), Window, SLOT(update()));
+        QObject::connect(redSlider, SIGNAL(valueChanged(int)), Window, SLOT(update()));
+        QObject::connect(greenSlider, SIGNAL(valueChanged(int)), Window, SLOT(update()));
+        QObject::connect(redSpinBox, SIGNAL(valueChanged(QString)), Window, SLOT(update()));
+        QObject::connect(greenSpinBox, SIGNAL(valueChanged(QString)), Window, SLOT(update()));
+        QObject::connect(blueSpinBox, SIGNAL(valueChanged(QString)), Window, SLOT(update()));
+        QObject::connect(animateButton, SIGNAL(clicked()), myGLWidget, SLOT(update()));
+        QObject::connect(animateButton, SIGNAL(clicked()), timelineSlider, SLOT(update()));
+        QObject::connect(timelineSlider, SIGNAL(valueChanged(int)), animLabel, SLOT(setNum(int)));
+        QObject::connect(timelineSlider, SIGNAL(valueChanged(int)), animSpinBox, SLOT(setValue(int)));
+        QObject::connect(animSpinBox, SIGNAL(valueChanged(int)), timelineSlider, SLOT(setValue(int)));
 
         QMetaObject::connectSlotsByName(Window);
     } // setupUi
@@ -357,15 +400,16 @@ public:
         xTransSlideLabel->setText(QApplication::translate("Window", "TextLabel", Q_NULLPTR));
         YTransDescriptionLabel->setText(QApplication::translate("Window", "Translation in Y", Q_NULLPTR));
         yTransSlideLabel->setText(QApplication::translate("Window", "TextLabel", Q_NULLPTR));
+        spawnButton->setText(QApplication::translate("Window", "Spawn Animal", Q_NULLPTR));
         label->setText(QApplication::translate("Window", "Red", Q_NULLPTR));
         label_3->setText(QApplication::translate("Window", "Blue", Q_NULLPTR));
         label_2->setText(QApplication::translate("Window", "Green", Q_NULLPTR));
-        animalButton->setText(QApplication::translate("Window", "Spawn Animal", Q_NULLPTR));
         animateButton->setText(QApplication::translate("Window", "Animate", Q_NULLPTR));
         xScaleDescriptionLabel->setText(QApplication::translate("Window", "Scale in X", Q_NULLPTR));
         xScaleLabel->setText(QApplication::translate("Window", "TextLabel", Q_NULLPTR));
         yScaleDescriptionLabel->setText(QApplication::translate("Window", "Scale in Y", Q_NULLPTR));
         yScaleLabel->setText(QApplication::translate("Window", "TextLabel", Q_NULLPTR));
+        animLabel->setText(QApplication::translate("Window", "TextLabel", Q_NULLPTR));
         RotDescriptionLabel->setText(QApplication::translate("Window", "Rotation in Degrees", Q_NULLPTR));
         rotationLabel->setText(QApplication::translate("Window", "TextLabel", Q_NULLPTR));
     } // retranslateUi

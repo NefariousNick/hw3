@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Window_t {
-    QByteArrayData data[18];
-    char stringdata0[293];
+    QByteArrayData data[20];
+    char stringdata0[348];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -46,9 +46,11 @@ QT_MOC_LITERAL(11, 155, 28), // "on_xScaleSlider_valueChanged"
 QT_MOC_LITERAL(12, 184, 28), // "on_yScaleSlider_valueChanged"
 QT_MOC_LITERAL(13, 213, 28), // "on_rotationDial_valueChanged"
 QT_MOC_LITERAL(14, 242, 5), // "angle"
-QT_MOC_LITERAL(15, 248, 23), // "on_animalButton_clicked"
-QT_MOC_LITERAL(16, 272, 14), // "onColorChanged"
-QT_MOC_LITERAL(17, 287, 5) // "color"
+QT_MOC_LITERAL(15, 248, 22), // "on_spawnButton_clicked"
+QT_MOC_LITERAL(16, 271, 24), // "on_animateButton_clicked"
+QT_MOC_LITERAL(17, 296, 30), // "on_timelineSlider_valueChanged"
+QT_MOC_LITERAL(18, 327, 14), // "onColorChanged"
+QT_MOC_LITERAL(19, 342, 5) // "color"
 
     },
     "Window\0colorChanged\0\0arg\0"
@@ -59,8 +61,9 @@ QT_MOC_LITERAL(17, 287, 5) // "color"
     "on_xScaleSlider_valueChanged\0"
     "on_yScaleSlider_valueChanged\0"
     "on_rotationDial_valueChanged\0angle\0"
-    "on_animalButton_clicked\0onColorChanged\0"
-    "color"
+    "on_spawnButton_clicked\0on_animateButton_clicked\0"
+    "on_timelineSlider_valueChanged\0"
+    "onColorChanged\0color"
 };
 #undef QT_MOC_LITERAL
 
@@ -70,25 +73,27 @@ static const uint qt_meta_data_Window[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
-       1,   84, // properties
+      11,   14, // methods
+       1,   98, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   59,    2, 0x06 /* Public */,
+       1,    1,   69,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       4,    2,   62,    2, 0x0a /* Public */,
-       8,    1,   67,    2, 0x0a /* Public */,
-      10,    1,   70,    2, 0x0a /* Public */,
-      11,    1,   73,    2, 0x0a /* Public */,
-      12,    1,   76,    2, 0x0a /* Public */,
-      13,    1,   79,    2, 0x0a /* Public */,
-      15,    0,   82,    2, 0x0a /* Public */,
-      16,    0,   83,    2, 0x08 /* Private */,
+       4,    2,   72,    2, 0x0a /* Public */,
+       8,    1,   77,    2, 0x0a /* Public */,
+      10,    1,   80,    2, 0x0a /* Public */,
+      11,    1,   83,    2, 0x0a /* Public */,
+      12,    1,   86,    2, 0x0a /* Public */,
+      13,    1,   89,    2, 0x0a /* Public */,
+      15,    0,   92,    2, 0x0a /* Public */,
+      16,    0,   93,    2, 0x0a /* Public */,
+      17,    1,   94,    2, 0x0a /* Public */,
+      18,    0,   97,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QColor,    3,
@@ -102,9 +107,11 @@ static const uint qt_meta_data_Window[] = {
     QMetaType::Void, QMetaType::Float,   14,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,    9,
+    QMetaType::Void,
 
  // properties: name, type, flags
-      17, QMetaType::QColor, 0x00495001,
+      19, QMetaType::QColor, 0x00495001,
 
  // properties: notify_signal_id
        0,
@@ -125,8 +132,10 @@ void Window::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 4: _t->on_xScaleSlider_valueChanged((*reinterpret_cast< float(*)>(_a[1]))); break;
         case 5: _t->on_yScaleSlider_valueChanged((*reinterpret_cast< float(*)>(_a[1]))); break;
         case 6: _t->on_rotationDial_valueChanged((*reinterpret_cast< float(*)>(_a[1]))); break;
-        case 7: _t->on_animalButton_clicked(); break;
-        case 8: _t->onColorChanged(); break;
+        case 7: _t->on_spawnButton_clicked(); break;
+        case 8: _t->on_animateButton_clicked(); break;
+        case 9: _t->on_timelineSlider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 10: _t->onColorChanged(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -192,13 +201,13 @@ int Window::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 11;
     }
 #ifndef QT_NO_PROPERTIES
    else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty

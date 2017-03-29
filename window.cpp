@@ -3,7 +3,6 @@
 #include <string>
 #include "window.h"
 #include "ui_window.h"
-#include <QTimeline>
 #include <QColorDialog>
 #include <QPalette>
 
@@ -35,32 +34,7 @@ Window::Window(QWidget *parent) :		// Window constructor
 	connect(ui->greenSlider, SIGNAL(valueChanged(int)), SLOT(onColorChanged()));
 	connect(ui->blueSlider, SIGNAL(valueChanged(int)), SLOT(onColorChanged()));
 	onColorChanged();
-	 /**************************************************************************
-	//Progress Bar and Timeline stuff
-	progressBar = new QProgressBar(this);
-	progressBar->setRange(0, 100);
-	//progressBar->setFixedSize(9, 3);
-	//1 second timeline
-	timeline = new QTimeLine(1000, this);
-	timeline->setFrameRange(0, 100);
-	timeline->setLoopCount(5);				//loop through timeline 5 times
-	timeline->setUpdateInterval(200);		//2 second update interval
-	timeline->setCurveShape(QTimeLine::LinearCurve);
-	connect(timeline, SIGNAL(framechanged(int)), progressBar, SLOT(setValue(int)));
-	timeline->start();
 
-	//I don't even know if this is done correctly
-	//how the hell do you animate an object in a widget?
-//	QPropertyAnimation *animation = new QPropertyAnimation(ui->myGLWidget, "geometry");
-
-	//animation->setDuration(1000);
-
-	//animation->setStartValue(QRect(250, 250, 100, 30));
-	//animation->setEndValue(QRect(500, 450, 100, 30));
-
-	//animation->start();
-
-	//************************************************************************* */
 	//tree view and model stuff
 	model = new QStandardItemModel();
 	//model = new QListView();			// Tree views have to be populated with models, so create one
@@ -75,11 +49,7 @@ Window::Window(QWidget *parent) :		// Window constructor
 	//****************************************************************************
 	// You should be able to traverse your scene graph and set these up as you traverse or you can do it as you create your scene graph. 
 	// Also, realize you will need to create and delete these items when you create and delete nodes in your scene graph
-	/*
-	QTreeWidget *treeWidget = new QTreeWidget();
-	treeWidget->setColumnCount(1);
-	Qlist<Node *> items;
-	*/
+
 	//itemA = root
 	d = creature->root;
 	QStandardItem* itemA = new QStandardItem(QString::fromStdString(d->getName()));
@@ -122,7 +92,7 @@ Window::Window(QWidget *parent) :		// Window constructor
 	QStandardItem* itemH = new QStandardItem(QString::fromStdString(d->getName()));
 	itemH->setData(QVariant::fromValue(d));
 	itemB->appendRow(itemH);
-	//*******************************************************8
+	//****************************************************************************
 	ui->treeView->setModel(model); // ui needs to include treeView, so create one in Qt Creator and make sure it is named treeView
 								   // in the ui, I also made the header of the treeView not visible. 
 	ui->treeView->expandAll();		// show all of the items at all levels 
@@ -136,12 +106,14 @@ Window::Window(QWidget *parent) :		// Window constructor
 	ui->xScaleSlider->setVisible(FALSE);
 	ui->yScaleSlider->setVisible(FALSE);
 	ui->rotationDial->setVisible(FALSE);
-	ui->xTransSlider->setMinimum(-8); ui->xTransSlider->setMaximum(7); ui->xTransSlider->setSingleStep(1); // These are just sample to show how to do it. You decide on appropriate values. To use floats instead of ints, divide the values the sliders return by 100.0
-	ui->yTransSlider->setMinimum(-8); ui->yTransSlider->setMaximum(7); ui->yTransSlider->setSingleStep(1);
-	ui->xScaleSlider->setMinimum(-10); ui->xScaleSlider->setMaximum(10); ui->xScaleSlider->setSingleStep(1);
-	ui->yScaleSlider->setMinimum(-10); ui->yScaleSlider->setMaximum(10); ui->yScaleSlider->setSingleStep(1);
-	ui->rotationDial->setMinimum(0); ui->rotationDial->setMaximum(360); ui->rotationDial->setSingleStep(1);
-
+	ui->xTransSlider->setMinimum(-8);	ui->xTransSlider->setMaximum(7);	ui->xTransSlider->setSingleStep(1); // These are just sample to show how to do it. You decide on appropriate values. To use floats instead of ints, divide the values the sliders return by 100.0
+	ui->yTransSlider->setMinimum(-8);	ui->yTransSlider->setMaximum(7);	ui->yTransSlider->setSingleStep(1);
+	ui->xScaleSlider->setMinimum(-10);	ui->xScaleSlider->setMaximum(10);	ui->xScaleSlider->setSingleStep(1);
+	ui->yScaleSlider->setMinimum(-10);	ui->yScaleSlider->setMaximum(10);	ui->yScaleSlider->setSingleStep(1);
+	ui->rotationDial->setMinimum(0);	ui->rotationDial->setMaximum(360);	ui->rotationDial->setSingleStep(1);
+	ui->animLabel->setText("8");
+	ui->animSpinBox->setValue(8);
+	ui->timelineSlider->setMinimum(1);	ui->timelineSlider->setMaximum(8);	ui->timelineSlider->setValue(8);
 
 
 	// When a user moves a slider or rotation dial, update the label value to show it. 
@@ -152,12 +124,6 @@ Window::Window(QWidget *parent) :		// Window constructor
 	connect(ui->rotationDial, &QDial::valueChanged, this, &Window::on_rotationDial_valueChanged);
 
 	currentNode = NULL;  // Currently no node in the treeView is selected, so reflect that. 
-}
-
-//incomplete 
-//recursive function to populate the tree using a given model and the current root
-void Window::populateTree(QStandardItemModel* model, Node* root) {
-
 }
 
 
@@ -187,11 +153,8 @@ void Window::on_treeView_currentItemChanged(const QItemSelection &selected, cons
 		d = index.data(Qt::UserRole + 1).value<Node*>();// This is how to retrieve the data from an item 
 	}
 	
-
 	currentNode = d; // keep a pointer to the node that corresponds to the currently selected tree item. Makes things easier. 
 
-	//TODO how to represent this within the node or poly class?
-	//a modifiable value that can be affected by the slider?
 	ui->xTransSlider->setValue(d->getxTranslation());     // Set the values of the slides to what is currently in the node
 	ui->yTransSlider->setValue(d->getyTranslation());
 	ui->xTransSlideLabel->setNum(d->getxTranslation());		// Show the value in the label for the slider
@@ -204,7 +167,6 @@ void Window::on_treeView_currentItemChanged(const QItemSelection &selected, cons
 
 	ui->rotationDial->setValue(d->getRotation());
 	ui->rotationLabel->setNum(d->getRotation());
-
 
 	// Make the sliders visible
 	ui->xTransSlider->setVisible(TRUE);   
@@ -222,11 +184,13 @@ void Window::on_xTransSlider_valueChanged(float value)
 	ui->xTransSlideLabel->setNum(value);	// Set the label value
 
 											// Update the node value
+//	if (currentNode != NULL)
+//		currentNode->setTranslation(value,0);
 	if (currentNode != NULL)
-		currentNode->setTranslation(value,0);
+		currentNode->traverse(currentNode, mat3::translation2D(value, 0));
 
 	// Update the OpenGL window
-	ui->myGLWidget->update();  // Note in this sample code it will not do anything. In yours it should 
+	ui->myGLWidget->update(); 
 }
 
 void Window::on_yTransSlider_valueChanged(float value)
@@ -234,8 +198,10 @@ void Window::on_yTransSlider_valueChanged(float value)
 	ui->yTransSlideLabel->setNum(value);	// Set the label value
 	
 											// Update the node value
+//	if (currentNode != NULL)
+//		currentNode->setTranslation(0, value);	
 	if (currentNode != NULL)
-		currentNode->setTranslation(0, value);
+		currentNode->traverse(currentNode, mat3::translation2D(0, value));
 
 	// Update the OpenGL window
 	ui->myGLWidget->update();
@@ -248,6 +214,7 @@ void Window::on_xScaleSlider_valueChanged(float value) {
 
 	if (currentNode != NULL)
 		currentNode->setScale(value,0);
+	ui->myGLWidget->update();
 }
 
 void Window::on_yScaleSlider_valueChanged(float value)
@@ -256,6 +223,7 @@ void Window::on_yScaleSlider_valueChanged(float value)
 
 	if (currentNode != NULL)
 		currentNode->setScale(0, value);
+	ui->myGLWidget->update();
 }
 
 /***************************Rotation Sliders*********************************/
@@ -263,53 +231,93 @@ void Window::on_rotationDial_valueChanged(float angle)
 {
 	ui->rotationLabel->setNum(angle);
 
+//	if (currentNode != NULL)
+//		currentNode->setRotation(angle);
 	if (currentNode != NULL)
-		currentNode->setRotation(angle);
+		currentNode->traverse(currentNode, mat3::rotation2D(angle));
+	ui->myGLWidget->update();
 }
 
-void Window::on_animalButton_clicked()
+void Window::on_spawnButton_clicked()
 {
-	ui->myGLWidget->DrawWindowBackground;
+	this->animate(1);
+	ui->myGLWidget->update();
 }
 
 void Window::onColorChanged()
 {
-//	if (currentNode != NULL)
-//		currentNode->setColor((float)ui->redSlider->value(), (float)ui->greenSlider->value(),
-//		(float)ui->blueSlider->value());
 	m_color.setRgb(ui->redSlider->value(), ui->greenSlider->value(),
 		ui->blueSlider->value());
 	QPalette pal = ui->display->palette();
 	pal.setColor(QPalette::Window, m_color);
 	ui->display->setPalette(pal);
-	
 	emit colorChanged(m_color);
+
+	if (currentNode != NULL && ui->rotationDial->isVisible()) {
+		currentNode->setColor((float)ui->redSlider->value() / 255.0,
+			(float)ui->greenSlider->value() / 255.0,
+			(float)ui->blueSlider->value() / 255.0);
+	}
+	ui->myGLWidget->update();
+}
+
+//pass to animate
+void Window::on_timelineSlider_valueChanged(int value)
+{
+	this->animate(value);
+	ui->myGLWidget->update();
 }
 
 //create a new animal, set root equal to the new animal
 //apply animation transformations depending on the value selected
 //clear screen, traverse animal
-void Window::on_timelineSlider_valueChanged(int value)
+void Window::animate(int value)
 {
 	animal* creature = new animal();
-	if (value == 1) {
+
+	switch (value) {
+	case 1:
 		this->root = creature->root;
-	}
-	if (value == 2) {
+	case 2:
 		this->root = creature->root;
-		root->setTranslation(2, 3);
+		root->setTranslation(1, 1);
+		creature->legF2->setRotation(160);
+	case 3:
+		this->root = creature->root;
+		root->setTranslation(1, 2);
+		root->setRotation(2);
+		creature->legF1->setRotation(210);
+		creature->head->setColor(.3, .3, 1);
+	case 4:
+		this->root = creature->root;
+		root->setTranslation(1, 2);
+		root->setRotation(3);
+		creature->legF2->setRotation(160);
+	case 5:
+		this->root = creature->root;
+		root->setTranslation(1, 1);
+		root->setRotation(4);
+		creature->legF1->setRotation(210);
+		creature->head->setColor(.3, .3, 1);
+	case 6:
+		this->root = creature->root;
+		root->setTranslation(1, 0);
+		root->setRotation(5);
+		creature->legF2->setRotation(160);
+	case 7:
+		this->root = creature->root;
+		root->setRotation(6);
+		creature->legF1->setRotation(210);
+		creature->head->setColor(.3, .3, 1);
+	case 8:
+		this->root = creature->root;
 	}
 
-	if (value == 3) {
-		this->root = creature->root;
-		root->setTranslation(2, 3);
-		root->setRotation(30);
-	}
 	ui->myGLWidget->qglClearColor(Qt::white);
+
 	root->traverse();
 
 	model = new QStandardItemModel();
-	//model = new QListView();			// Tree views have to be populated with models, so create one
 	Node* d;							// head node 
 	d = creature->root;
 	QStandardItem* itemA = new QStandardItem(QString::fromStdString(d->getName()));
@@ -356,7 +364,41 @@ void Window::on_timelineSlider_valueChanged(int value)
 	ui->treeView->setModel(model); // ui needs to include treeView, so create one in Qt Creator and make sure it is named treeView
 								   // in the ui, I also made the header of the treeView not visible. 
 	ui->treeView->expandAll();		// show all of the items at all levels 
+	connect(ui->treeView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &Window::on_treeView_currentItemChanged);
+	currentNode = NULL;
 
+	ui->myGLWidget->update();
+}
 
-
+void Window::on_renderButton_clicked()
+{
+	/*
+	this->animate(1);
+	ui->timelineSlider->setValue(1);
+	ui->animLabel->setText("1");
+	ui->myGLWidget->update();
+	update();
+	Sleep(1000);
+	this->animate(2);
+	ui->animLabel->setText("2");
+	ui->timelineSlider->setValue(2);
+	ui->myGLWidget->update();
+	update();
+	Sleep(1000);
+	this->animate(2);
+	ui->animLabel->setText("3");
+	ui->timelineSlider->setValue(3);
+	ui->myGLWidget->update();
+	update();
+	Sleep(1000);
+	*/
+	ui->timelineSlider->setValue(1);
+	ui->timelineSlider->update();
+	Sleep(1000);
+	ui->timelineSlider->setValue(2);
+	ui->timelineSlider->update();
+	Sleep(1000);
+	ui->timelineSlider->setValue(3);
+	ui->timelineSlider->update();
+	Sleep(1000);
 }

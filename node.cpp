@@ -145,14 +145,14 @@ void Node::setRotation(float angle){
 
 //using mat3 translation, set the translation of this node using the provided x and y
 void Node::setTranslation(float x,float y){
-	//*(this->trans) = *(this->trans)*mat3::translation2D(x,y);
-	*(this->trans) = mat3::translation2D(x, y);
+	*(this->trans) = *(this->trans)*mat3::translation2D(x,y);
+	//*(this->trans) = mat3::translation2D(x, y)*(*(this->trans));
 }
 
 //using mat3 scale, set the scale of this node using the provided x and y
 void Node::setScale(float x, float y){
 	//*(this->scale) = *(this->scale)*mat3::scale2D(x, y);
-	*(this->scale) = mat3::scale2D(x, y);
+	*(this->scale) = mat3::scale2D(x, y)*(*(this->scale));
 }
 void Node::setColor(float x, float y, float z)
 {

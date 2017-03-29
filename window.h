@@ -11,8 +11,6 @@
 #include "animal.h"
 #pragma once
 
-//class Data;  // forward declaration of my simple little data class
-
 namespace Ui {
 class Window;
 }
@@ -24,11 +22,8 @@ class Window : public QWidget
 public:
     explicit Window(QWidget *parent = 0);
     ~Window();
-
-	void populateTree(QStandardItemModel* model, Node* root);
+	void animate(int value);
 	Node* root;					//static pointer to the root
-	Node* root2;
-	Node* root3;
 	QColor color() const {
 		return m_color;
 	}
@@ -37,20 +32,20 @@ protected:
     void keyPressEvent(QKeyEvent *event);
 
 	signals:
-	void colorChanged(QColor arg);
+		void colorChanged(QColor arg);
 
 	public slots :
 		void on_treeView_currentItemChanged(const QItemSelection &selected, const QItemSelection &deselected);  // Called when a different item in the tree view is selected. 
 		void on_xTransSlider_valueChanged(float value); // Called when the slider is slid. 
 		void on_yTransSlider_valueChanged(float value); // Called when the slider is slid. 
-		void on_xScaleSlider_valueChanged(float value);
-		void on_yScaleSlider_valueChanged(float value);
-		void on_rotationDial_valueChanged(float angle);
-		void on_animalButton_clicked();
-		void on_timelineSlider_valueChanged(int value);
+		void on_xScaleSlider_valueChanged(float value); // Called when the slider is slid. 
+		void on_yScaleSlider_valueChanged(float value); // Called when the slider is slid. 
+		void on_rotationDial_valueChanged(float angle); // Called when the slider is slid. 
+		void on_spawnButton_clicked();					// Called when the button is clicked. 
+        void on_renderButton_clicked();				// Called when the button is clicked.
+		void on_timelineSlider_valueChanged(int value); // Called when the slider is slid. 
 	private slots:
 		void onColorChanged();
-
 
 private:
     Ui::Window *ui;				// A Qt internal mechanism

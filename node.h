@@ -5,7 +5,7 @@
 #pragma once
 
 //////////////////////////////////////////////////////////
-// A class for storing and accessing strings in a tree
+// A class for storing and accessing poly data and it's children
 //////////////////////////////////////////////////////////
 
 class Node {
@@ -18,7 +18,7 @@ private:
 
 	poly p;							// These might be transforms and/or geometry instead. 
 	std::list<Node*> children;
-	std::string name;
+	std::string name;				//name of the current node
 
 public:
 	poly getPolyData();

@@ -75,17 +75,21 @@ mat3 mat3::transpose() const{
 ///----------------------------------------------------------------------	
 /// Creates a 3-D rotation matrix.
 /// Takes an angle in degrees and outputs a 3x3 rotation matrix
+
 mat3 mat3::rotation2D(float angle){
-	return mat3(vec3(cos(angle),sin(angle),0),
-			vec3(-sin(angle),cos(angle),0),
-			vec3(0,0,1));
+	#define PI 3.14159
+	float c = cos(angle*PI / 180.0), s = sin(angle*PI / 180.0);
+//	float c = cos(angle), s = sin(angle);
+	return mat3(vec3(c,-s,0),
+				vec3(s,c,0),
+				vec3(0,0,1));
 }
 
 /// Takes an x and y displacement and outputs a 3x3 translation matrix
 mat3 mat3::translation2D(float x, float y){
 	return mat3(vec3(1,0, x),
-			vec3(0,1, y), 
-			vec3(0,0, 1));
+				vec3(0,1, y), 
+				vec3(0,0, 1));
 }
 
 
@@ -93,15 +97,15 @@ mat3 mat3::translation2D(float x, float y){
 /// Takes an x and y scale and outputs a 3x3 scale matrix
 mat3 mat3::scale2D(float x, float y){
 	return mat3(vec3(x,0,0),
-			vec3(0,y,0),
-			vec3(0,0,1));
+				vec3(0,y,0),
+				vec3(0,0,1));
 }
 
 /// Generates a 3x3 identity matrix
 mat3 mat3::identity(){
 	return mat3(vec3(1,0,0),
-			vec3(0,1,0),
-			vec3(0,0,1));
+				vec3(0,1,0),
+				vec3(0,0,1));
 }
 
 ///----------------------------------------------------------------------
