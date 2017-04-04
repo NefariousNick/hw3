@@ -3,7 +3,6 @@
 
 #include <QtWidgets>
 #include <QtOpenGL>  // Note that some of the OpenGL calls are Qt specific and not standard OpenGL
-#include "animal.h"
 #include "myglwidget.h"
 #pragma once
 
